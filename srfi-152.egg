@@ -1,0 +1,9 @@
+;;; srfi-152.egg -*- Scheme -*- vim: ft=scheme:
+
+((author "John Cowan")
+ (maintainer "Sergey Goldgaber")
+ (synopsis "A Chicken version of the SRFI-152 reference implementation")
+ (category data)
+ (test-dependencies test)
+ (license "MIT")
+ (components (extension srfi-152)))
