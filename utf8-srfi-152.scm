@@ -16,14 +16,14 @@
                   (string-ci>? base-string-ci>?)
                   (string-ci<=? base-string-ci<=?)
                   (string-ci>=? base-string-ci>=?)))
-  (import (only chicken include error use case-lambda
+  (import (only chicken include error case-lambda
                         open-input-string open-output-string get-output-string))
 
-  (import (only chicken include error use case-lambda
+  (import (only chicken include error case-lambda
                         open-input-string open-output-string get-output-string))
 
   ;; Cherry-pick utf8 procedures and re-export them
-  (use (only utf8
+  (import (only utf8
     string-length string-ref string-set! make-string string substring list->string display))
   (export string-length string-ref string-set! make-string string substring list->string)
 

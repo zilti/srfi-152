@@ -1,6 +1,7 @@
 ;;;; Module for Chicken's native 8-bit strings
 
 (module srfi-152 ()
+  (import (chicken platform))
 
   ;; R5RS+ procedures must not be imported, as we redefine them
   (import (rename (except scheme
@@ -15,8 +16,10 @@
                   (string-ci>? base-string-ci>?)
                   (string-ci<=? base-string-ci<=?)
                   (string-ci>=? base-string-ci>=?)))
-  (import (only chicken include error use case-lambda
+  (import (only chicken.base include error case-lambda
                         open-input-string open-output-string get-output-string))
+
+  (register-feature! 'srfi-152)
 
   ;; Don't export R5RS procedures
   #;(no-export string? make-string list->string
@@ -31,7 +34,7 @@
           string-ci=? string-ci<? string-ci>? string-ci<=? string-ci>=? )
 
   ;; Export R7RS procedures (defined in r7rs-shim file and chicken module)
-  (import (only extras read-string))
+  (import (only chicken.io read-string))
   (export string->vector vector->string string-map string-for-each
           read-string write-string string-copy! write-string)
 
