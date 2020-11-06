@@ -593,7 +593,7 @@ The other modules, if imported, must be restricted in the same way as shown abov
 
 The R7RS library assumes the presence of all R7RS-small procedures and does not require excluding any of them, as this SRFI is inherently compatible with R7RS-small.
 ** Author
-John Cowan, packaged for Chicken Scheme by Sergey Goldgaber.
+John Cowan, ported to Chicken 5 and packaged by Sergey Goldgaber.
 ** Acknowledgements
 I acknowledge the participants in the SRFI 152 mailing list, and everyone acknowledged in SRFI 135 (which acknowledges everyone acknowledged in SRFI 130 (which acknowledges everyone acknowledged in SRFI 13)). Particularly important are Olin Shivers, the author of SRFI 13, and Will Clinger, the author of SRFI 135.
 
