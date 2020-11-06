@@ -22,8 +22,6 @@
   ;; This import is necessary to get the definition of "export":
   (import (chicken module))
 
-  (register-feature! 'srfi-152)
-
   ;; Don't export R5RS procedures
   #;(no-export string? make-string list->string
                string-length string-ref substring
@@ -62,6 +60,7 @@
           string-filter string-remove)
   (export string-replicate string-segment string-split)
 
+  (register-feature! 'srfi-152)
 
   (include "macros.scm")
   (include "portable.scm")
