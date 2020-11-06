@@ -1,6 +1,7 @@
 ;;;; Module for Chicken's native 8-bit strings
 
 (module utf8-srfi-152 ()
+  (import (chicken platform))
 
   ;; R5RS+ and utf8 procedures must not be imported, as we redefine them
   (import (rename (except scheme
@@ -16,11 +17,11 @@
                   (string-ci>? base-string-ci>?)
                   (string-ci<=? base-string-ci<=?)
                   (string-ci>=? base-string-ci>=?)))
-  (import (only chicken include error case-lambda
+  (import (only chicken.base include error case-lambda
                         open-input-string open-output-string get-output-string))
 
-  (import (only chicken include error case-lambda
-                        open-input-string open-output-string get-output-string))
+  ;; This import is necessary to get the definition of "export":
+  (import (chicken module))
 
   ;; Cherry-pick utf8 procedures and re-export them
   (import (only utf8
@@ -65,6 +66,7 @@
           string-filter string-remove)
   (export string-replicate string-segment string-split)
 
+  (register-feature! 'utf8-srfi-152)
 
   (include "macros.scm")
   (include "portable.scm")
