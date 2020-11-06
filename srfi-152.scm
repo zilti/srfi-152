@@ -19,6 +19,9 @@
   (import (only chicken.base include error case-lambda
                         open-input-string open-output-string get-output-string))
 
+  ;; This import is necessary to get the definition of "export":
+  (import (chicken module))
+
   (register-feature! 'srfi-152)
 
   ;; Don't export R5RS procedures
