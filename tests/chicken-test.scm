@@ -1,4 +1,4 @@
-(import srfi-152) (import test) (import (only (chicken.base open-input-string open-output-string get-output-string))
+(import srfi-152) (import test) (import (only chicken.base open-input-string open-output-string get-output-string))
 
 (define (complement proc) (lambda (x) (not (proc x))))
 (define (char-newline? ch) (eqv? ch #\newline))
