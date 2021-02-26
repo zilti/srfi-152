@@ -1,8 +1,6 @@
-;;; srfi-152.egg -*- Scheme -*- vim: ft=scheme:
-
 ((author "John Cowan")
  (maintainer "Wolfgang Corcoran-Mathe")
- (synopsis "A Chicken version of the SRFI-152 reference implementation")
+ (synopsis "String library (reduced)")
  (category data)
  (dependencies utf8)
  (test-dependencies test)
