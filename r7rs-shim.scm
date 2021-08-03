@@ -135,9 +135,4 @@
     ((str port start) (write-string str port start (string-length str)))
     ((str port start end) (display (%substring str start end) port))))
 
-(define (eof-object)
-  (let ((port (open-input-string "")))
-    (dynamic-wind
-      (lambda () #f)
-      (lambda () (read-char port))
-      (lambda () close-input-port port))))
+(define (eof-object) #!eof)
