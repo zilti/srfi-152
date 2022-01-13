@@ -1,6 +1,8 @@
-(import utf8-srfi-152) (import test) (import (only chicken.base open-input-string open-output-string get-output-string))
+(import (srfi 152)
+        test
+        (only (chicken base) open-input-string open-output-string
+                             get-output-string complement))
 
-(define (complement proc) (lambda (x) (not (proc x))))
 (define (char-newline? ch) (eqv? ch #\newline))
 (define (char-is-r? ch) (eqv? ch #\r))
 (define (char-is-colon? ch) (eqv? ch #\:))
