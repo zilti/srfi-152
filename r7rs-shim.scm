@@ -1,42 +1,3 @@
-(define (string-fill! s char . maybe-start+end)
-  (check-arg char? char string-fill!)
-  (let-string-start+end (start end) string-fill! s maybe-start+end
-    (do ((i (- end 1) (- i 1)))
-	((< i start))
-      (string-set! s i char))))
-
-(define (string-copy! to tstart from . maybe-fstart+fend)
-  (let-string-start+end (fstart fend) string-copy! from maybe-fstart+fend
-    (check-arg integer? tstart string-copy!)
-    (check-substring-spec string-copy! to tstart (+ tstart (- fend fstart)))
-    (%string-copy! to tstart from fstart fend)))
-
-;;; Library-internal routine
-(define (%string-copy! to tstart from fstart fend)
-  (if (> fstart tstart)
-      (do ((i fstart (+ i 1))
-	   (j tstart (+ j 1)))
-	  ((>= i fend))
-	(string-set! to j (string-ref from i)))
-
-      (do ((i (- fend 1)                    (- i 1))
-	   (j (+ -1 tstart (- fend fstart)) (- j 1)))
-	  ((< i fstart))
-	(string-set! to j (string-ref from i)))))
-
-(define (string->list s . maybe-start+end)
-  (let-string-start+end (start end) string->list s maybe-start+end
-    (do ((i (- end 1) (- i 1))
-	 (ans '() (cons (string-ref s i) ans)))
-	((< i start) ans))))
-
-(define (string->vector s . maybe-start+end)
-  (let-string-start+end (start end) string->vector s maybe-start+end
-    (let ((vector (make-vector (- end start))))
-      (do ((i (- end 1) (- i 1)))
-          ((< i start) vector)
-        (vector-set! vector (- i start) (string-ref s i))))))
-
 (define (vector->string vector . maybe-start+end)
   (let ((start 0) (end (vector-length vector)))
     (case (length maybe-start+end)
@@ -104,28 +65,6 @@
                      (error
                                           "illegal-arguments"
                                           (cons f args))))))))))
-
-(define (string-copy s . maybe-start+end)
-  (let-string-start+end (start end) string-copy! s maybe-start+end
-    (%substring s start end)))
-
-(cond-expand
-  (chicken
-    #;imported)
-  (else
-    (define read-string
-      (case-lambda
-        ((k) (read-string k (current-input-port)))
-        ((k port)
-          (let loop ((i 0) (o '()))
-            (if (>= i k)
-              (list->string (reverse o))
-              (let ((c (read-char port)))
-                (if (eof-object? c)
-                  (if (= i 0)
-                    c
-                    (list->string (reverse o)))
-                  (loop (+ i 1) (cons c o)))))))))))
 
 ;; Chicken's write-string is incompatible with R7RS
 (define write-string
