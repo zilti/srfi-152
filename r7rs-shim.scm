@@ -1,3 +1,10 @@
+(define (string->vector s . maybe-start+end)
+  (let-string-start+end (start end) string->vector s maybe-start+end
+    (let ((vector (make-vector (- end start))))
+      (do ((i (- end 1) (- i 1)))
+          ((< i start) vector)
+        (vector-set! vector (- i start) (string-ref s i))))))
+
 (define (vector->string vector . maybe-start+end)
   (let ((start 0) (end (vector-length vector)))
     (case (length maybe-start+end)
@@ -65,6 +72,10 @@
                      (error
                                           "illegal-arguments"
                                           (cons f args))))))))))
+
+(define (string-copy s . maybe-start+end)
+  (let-string-start+end (start end) string-copy! s maybe-start+end
+    (%substring s start end)))
 
 ;; Chicken's write-string is incompatible with R7RS
 (define write-string
