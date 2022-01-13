@@ -37,7 +37,7 @@
           (only utf8 string-length string-ref string-set! make-string
                      string substring list->string display read-string
                      string-fill! string->list string->vector)
-          (only utf8-srfi-13 string-copy!)
+          (only utf8-srfi-13 string-copy!))
 
   (register-feature! 'srfi-152)
 
