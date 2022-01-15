@@ -18,6 +18,7 @@
    string-for-each read-string write-string string-copy! write-string)
 
   (import (chicken platform)
+          (chicken type)
           (rename (except scheme
                           string-length string-ref string-set! make-string
                           string substring string-copy string->list
@@ -33,10 +34,13 @@
                   (string-ci<=? base-string-ci<=?)
                   (string-ci>=? base-string-ci>=?))
           (only (chicken base) include error case-lambda open-input-string
-                               open-output-string get-output-string)
+                               open-output-string get-output-string
+                               receive assert
+                               )
           (only utf8 string-length string-ref string-set! make-string
                      string substring list->string display read-string
-                     string-fill! string->list)
+                     string-fill! string->list reverse-list->string
+                     )
           ;; Some 152 procedures differ from their 13 counterparts.
           (except utf8-srfi-13
                   string-every string-any string-trim string-trim-right
