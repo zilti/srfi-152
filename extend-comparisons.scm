@@ -14,6 +14,17 @@
              (null? (cdr strs))
              (apply base-name strs))) ...))))
 
+(: string=? (#!rest string -> boolean))
+(: string<? (#!rest string -> boolean))
+(: string>? (#!rest string -> boolean))
+(: string<=? (#!rest string -> boolean))
+(: string>=? (#!rest string -> boolean))
+(: string-ci=? (#!rest string -> boolean))
+(: string-ci<? (#!rest string -> boolean))
+(: string-ci>? (#!rest string -> boolean))
+(: string-ci<=? (#!rest string -> boolean))
+(: string-ci>=? (#!rest string -> boolean))
+
 ;; Extend the usual string comparison procedures as above.
 (define-comparison/base/pairs
   (string=? . base-string=?)
