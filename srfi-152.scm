@@ -37,11 +37,24 @@
           (only utf8 string-length string-ref string-set! make-string
                      string substring list->string display read-string
                      string-fill! string->list)
-          (only utf8-srfi-13 string-copy!))
+          ;; Some 152 procedures differ from their 13 counterparts.
+          (except utf8-srfi-13
+                  string-every string-any string-trim string-trim-right
+                  string-trim-both string-index string-index-right
+                  string-skip string-skip-right string-count
+                  string-filter string-delete string-map string-for-each)
+          (prefix (only utf8-srfi-13
+                        string-every string-any string-trim
+                        string-trim-right string-trim-both string-index
+                        string-index-right string-skip string-skip-right
+                        string-count string-filter string-delete
+                        string-map string-for-each)
+                  srfi-13:)
 
   (register-feature! 'srfi-152)
 
   (include "macros.scm")
+  (include "wrappers.scm")
   (include "portable.scm")
   (include "extend-comparisons.scm")
   (include "r7rs-shim.scm")
