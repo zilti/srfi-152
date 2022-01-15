@@ -49,7 +49,7 @@
                         string-index-right string-skip string-skip-right
                         string-count string-filter string-delete
                         string-map string-for-each)
-                  srfi-13:)
+                  srfi-13:))
 
   (register-feature! 'srfi-152)
 
