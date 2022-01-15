@@ -115,11 +115,6 @@
 		(count 0 (if (criterion (string-ref s i)) (+ count 1) count)))
 	       ((>= i end) count))))
 
-(define (string-contains-right text pattern . maybe-starts+ends)
-  (apply string-contains (string-reverse text)
-                         (string-reverse pattern)
-                         maybe-starts+ends))
-
 (define (string-segment str k)
   (assert (>= k 1) "minimum segment size is 1" k)
   (let ((len (string-length str)))
