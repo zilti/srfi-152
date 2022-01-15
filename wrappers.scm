@@ -13,22 +13,22 @@
   (assert (procedure? pred))
   (apply srfi-13:string-any pred s opt))
 
-(: string-trim (string (char -> *) #!optional integer integer -> string))
-(define (string-trim s pred . opt)
-  (assert (procedure? pred))
-  (apply srfi-13:string-trim s pred opt))
+(: string-trim (string #!optional (char -> *) integer integer -> string))
+(define (string-trim s . opt)
+  (assert (if (pair? opt) (procedure? (car opt)) #t))
+  (apply srfi-13:string-trim s opt))
 
 (: string-trim-right
-   (string (char -> *) #!optional integer integer -> string))
-(define (string-trim-right s pred . opt)
-  (assert (procedure? pred))
-  (apply srfi-13:string-trim-right s pred opt))
+   (string #!optional (char -> *) integer integer -> string))
+(define (string-trim-right s . opt)
+  (assert (if (pair? opt) (procedure? (car opt)) #t))
+  (apply srfi-13:string-trim-right s opt))
 
 (: string-trim-both
-   (string (char -> *) #!optional integer integer -> string))
-(define (string-trim-both s pred . opt)
-  (assert (procedure? pred))
-  (apply srfi-13:string-trim-both s pred opt))
+   (string #!optional (char -> *) integer integer -> string))
+(define (string-trim-both s . opt)
+  (assert (if (pair? opt) (procedure? (car opt)) #t))
+  (apply srfi-13:string-trim-both s opt))
 
 (: string-index
    (string (char -> *) #!optional integer integer -> (or integer false)))
