@@ -33,7 +33,6 @@
        (string-every (lambda (x) (error "hoge")) ""))
 (test "string-any" #t (string-any char-is-a? "aaaa"))
 (test "string-any" #f (string-any char-is-a? "Abcd"))
-(test "string-any" #f (string-any #\a ""))
 (test "string-any" #t (string-any char-lower-case? "ABcD"))
 (test "string-any" #f (string-any char-lower-case? "ABCD"))
 (test "string-any" #f (string-any char-lower-case? ""))
