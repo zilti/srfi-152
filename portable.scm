@@ -32,32 +32,32 @@
 ;;; Returns three values: rest start end
 
 (define (string-parse-start+end proc s args)
-  (if (not (string? s)) (error "Non-string value" proc s))
+  (assert (string? s) "Non-string value" proc s)
   (let ((slen (string-length s)))
     (if (pair? args)
 
 	(let ((start (car args))
 	      (args (cdr args)))
-	  (if (and (integer? start) (exact? start) (>= start 0))
-	      (receive (end args)
-		  (if (pair? args)
-		      (let ((end (car args))
-			    (args (cdr args)))
-			(if (and (integer? end) (exact? end) (<= end slen))
-			    (values end args)
-			    (error "Illegal substring END spec" proc end s)))
-		      (values slen args))
-		(if (<= start end) (values args start end)
-		    (error "Illegal substring START/END spec"
-			   proc start end s)))
-	      (error "Illegal substring START spec" proc start s)))
+	  (assert (and (integer? start) (exact? start) (>= start 0))
+	          "Illegal substring START spec" proc start s)
+	  (receive (end args)
+		(if (pair? args)
+		    (let ((end (car args))
+			  (args (cdr args)))
+		      (assert (and (integer? end) (exact? end) (<= end slen))
+			      "Illegal substring END spec" proc end s)
+		      (values end args))
+		    (values slen args))
+	    (assert (<= start end)
+		    "Illegal substring START/END spec" proc start end s)
+	    (values args start end)))
 
 	(values '() 0 slen))))
 
 (define (string-parse-final-start+end proc s args)
   (receive (rest start end) (string-parse-start+end proc s args)
-    (if (pair? rest) (error "Extra arguments to procedure" proc rest)
-	(values start end))))
+    (assert (null? rest) "Extra arguments to procedure" proc rest)
+    (values start end)))
 
 ;;; Split out so that other routines in this library can avoid arg-parsing
 ;;; overhead for END parameter.
@@ -168,8 +168,8 @@
 (define (string-split s delimiter . args)
   ;; The argument checking part might be refactored with other srfi-130
   ;; routines.
-  (if (not (string? s)) (error "string expected" s))
-  (if (not (string? delimiter)) (error "string expected" delimiter))
+  (assert (string? s) "string expected" s)
+  (assert (string? delimiter) "string expected" delimiter)
   (let ((slen (string-length s)))
     (receive (grammar limit no-limit start end)
         (if (pair? args)
@@ -181,20 +181,20 @@
               (values (car args) (cadr args) #f 0 slen))
             (values (car args) #f #t 0 slen))
           (values 'infix #f #t 0 slen))
-      (if (not (memq grammar '(infix strict-infix prefix suffix)))
-        (error "grammar must be one of (infix strict-infix prefix suffix)" grammar))
+      (assert (memq grammar '(infix strict-infix prefix suffix))
+              "grammar must be one of (infix strict-infix prefix suffix)"
+              grammar)
       (if (not limit) (set! no-limit #t))
-      (if (not (or no-limit
-                  (and (integer? limit) (exact? limit) (>= limit 0))))
-        (error "limit must be exact nonnegative integer or #f" limit))
-      (if (not (and (integer? start) (exact? start)))
-        (error "start argument must be exact integer" start))
-      (if (not (<= 0 start slen))
-        (error "start argument out of range" start))
-      (if (not (<= 0 end slen))
-        (error "end argument out of range" end))
-      (if (not (<= start end))
-        (error "start argument is greater than end argument" (list start end)))
+      (assert (or no-limit
+                  (and (integer? limit) (exact? limit) (>= limit 0)))
+              "limit must be an exact nonnegative integer or #f" limit)
+      (assert (and (integer? start) (exact? start))
+              "start argument must be exact integer" start)
+      (assert (<= 0 start slen) "start argument out of range" start)
+      (assert (<= 0 end slen) "end argument out of range" end)
+      (assert (<= start end)
+              "start argument is greater than end argument"
+              (list start end))
 
       (cond ((= start end)
              (if (eq? grammar 'strict-infix)
