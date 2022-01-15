@@ -46,7 +46,10 @@
                   string-every string-any string-trim string-trim-right
                   string-trim-both string-index string-index-right
                   string-skip string-skip-right string-count
-                  string-filter string-delete string-map string-for-each)
+                  string-filter string-delete string-map string-for-each
+                  xsubstring
+                  )
+          (rename (only utf8-srfi-13) (xsubstring string-replicate))
           (prefix (only utf8-srfi-13
                         string-every string-any string-trim
                         string-trim-right string-trim-both string-index
