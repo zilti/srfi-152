@@ -6,4 +6,7 @@
  (dependencies utf8)
  (test-dependencies test)
  (license "MIT")
- (components (extension srfi-152)))
+ (components
+  (extension
+   srfi-152
+   (types-file))))
