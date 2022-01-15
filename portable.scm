@@ -105,6 +105,33 @@
 		(count 0 (if (criterion (string-ref s i)) (+ count 1) count)))
 	       ((>= i end) count))))
 
+(define (string-contains-right text pattern . maybe-starts+ends)
+  (let-string-start+end2 (t-start t-end p-start p-end)
+                         string-contains-right text pattern maybe-starts+ends
+    (let* ((t-len (string-length text))
+           (p-len (string-length pattern))
+           (p-size (- p-end p-start))
+           (rt-start (- t-len t-end))
+           (rt-end (- t-len t-start))
+           (rp-start (- p-len p-end))
+           (rp-end (- p-len p-start))
+           (res (%kmp-search (string-reverse pattern)
+                             (string-reverse text)
+                             char=? rp-start rp-end rt-start rt-end)))
+      (if res
+        (- t-len res p-size)
+        #f))))
+
+(define (string-segment str k)
+  (assert (>= k 1) "minimum segment size is 1" k)
+  (let ((len (string-length str)))
+    (let loop ((start 0)
+               (result '()))
+      (if (= start len)
+        (reverse result)
+        (let ((end (min (+ start k) len)))
+          (loop end (cons (%substring str start end) result)))))))
+
 ;;; string-split s delimiter [grammar limit start end] -> list
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; Returns a list of the words contained in the substring of string from
