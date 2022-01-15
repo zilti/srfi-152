@@ -53,7 +53,6 @@
 
   (register-feature! 'srfi-152)
 
-  (include "macros.scm")
   (include "wrappers.scm")
   (include "portable.scm")
   (include "extend-comparisons.scm")
