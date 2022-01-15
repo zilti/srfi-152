@@ -1,3 +1,5 @@
+(: string->vector
+   (string #!optional integer integer -> (vector-of char)))
 (define (string->vector s . maybe-start+end)
   (let-string-start+end (start end) string->vector s maybe-start+end
     (let ((vector (make-vector (- end start))))
@@ -5,6 +7,7 @@
           ((< i start) vector)
         (vector-set! vector (- i start) (string-ref s i))))))
 
+(: vector->string (vector #!optional integer integer -> string))
 (define (vector->string vector . maybe-start+end)
   (let ((start 0) (end (vector-length vector)))
     (case (length maybe-start+end)
@@ -17,6 +20,7 @@
 
 ;; This is R7RS string-map, not SRFI 13.  (Extra arguments are
 ;; strings, not start/end indices.)
+(: string-map (procedure string #!rest string -> string))
 (define (string-map f x . rest)
 
   (define (string-map1 f x)
@@ -35,6 +39,7 @@
 
 ;; This is R7RS string-for-each, not SRFI 13.  (Extra arguments are
 ;; strings, not start/end indices.)
+(: string-for-each (procedure string #!rest string -> undefined))
 (define (string-for-each f s . rest)
 
   (define (for-each1 i n)
@@ -75,6 +80,8 @@
                                           (cons f args))))))))))
 
 ;; Chicken's write-string is incompatible with R7RS
+(: write-string
+   (string #!optional output-port integer integer -> undefined))
 (define write-string
   (case-lambda
     ((str) (display str))
@@ -82,4 +89,5 @@
     ((str port start) (write-string str port start (string-length str)))
     ((str port start end) (display (%substring str start end) port))))
 
+(: eof-object (-> eof))
 (define (eof-object) #!eof)
