@@ -1,2 +1,1 @@
-(include "chicken-test.scm")
-(include "utf8-chicken-test.scm")
+(include "srfi-152-test.scm")
