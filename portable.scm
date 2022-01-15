@@ -67,6 +67,8 @@
 
 ;;; Useful hacks added for SRFI 152
 
+(: string-take-while
+   (string (char -> *) #!optional integer integer --> string))
 (define (string-take-while s criterion . maybe-start+end)
   (let-string-start+end (start end) string-take-while s maybe-start+end
     (let ((idx (string-skip s criterion start end)))
@@ -74,6 +76,8 @@
           (%substring s 0 idx)
           ""))))
 
+(: string-take-while-right
+   (string (char -> *) #!optional integer integer --> string))
 (define (string-take-while-right s criterion . maybe-start+end)
   (let-string-start+end (start end) string-take-while s maybe-start+end
     (let ((idx (string-skip-right s criterion start end)))
@@ -81,6 +85,8 @@
           (%substring s (+ idx 1) (string-length s))
           ""))))
 
+(: string-drop-while
+   (string (char -> *) #!optional integer integer --> string))
 (define (string-drop-while s criterion . maybe-start+end)
   (let-string-start+end (start end) string-drop-while s maybe-start+end
     (let ((idx (string-skip s criterion start end)))
@@ -88,6 +94,8 @@
           (%substring s idx (string-length s))
           s))))
 
+(: string-drop-while-right
+   (string (char -> *) #!optional integer integer --> string))
 (define (string-drop-while-right s criterion . maybe-start+end)
   (let-string-start+end (start end) string-drop-while s maybe-start+end
     (let ((idx (string-skip-right s criterion start end)))
@@ -95,6 +103,8 @@
           (%substring s 0 (+ idx 1))
           s))))
 
+(: string-span
+   (string (char -> *) #!optional integer integer --> string string))
 (define (string-span s criterion . maybe-start+end)
   (let-string-start+end (start end) string-span s maybe-start+end
     (let ((idx (string-skip s criterion start end)))
@@ -102,6 +112,8 @@
         (values (%substring s 0 idx) (%substring s idx (string-length s)))
         (values "" s)))))
 
+(: string-break
+   (string (char -> *) #!optional integer integer --> string string))
 (define (string-break s criterion . maybe-start+end)
   (let-string-start+end (start end) string-break s maybe-start+end
     (let ((idx (string-index s criterion start end)))
@@ -109,12 +121,15 @@
         (values (%substring s 0 idx) (%substring s idx (string-length s)))
         (values s "")))))
 
+(: string-count
+   (string (char -> *) #!optional integer integer --> integer))
 (define (string-count s criterion . maybe-start+end)
   (let-string-start+end (start end) string-count s maybe-start+end
 	   (do ((i start (+ i 1))
 		(count 0 (if (criterion (string-ref s i)) (+ count 1) count)))
 	       ((>= i end) count))))
 
+(: string-segment (string integer --> (list-of string)))
 (define (string-segment str k)
   (assert (>= k 1) "minimum segment size is 1" k)
   (let ((len (string-length str)))
@@ -148,6 +163,8 @@
 ;;;
 ;;; Thanks to Shiro Kawai for the following code.
 
+(: string-split
+   (string string #!optional symbol integer integer -> (list-of string)))
 (define (string-split s delimiter . args)
   ;; The argument checking part might be refactored with other srfi-130
   ;; routines.
