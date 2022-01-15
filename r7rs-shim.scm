@@ -1,10 +1,3 @@
-(define (string->vector s . maybe-start+end)
-  (let-string-start+end (start end) string->vector s maybe-start+end
-    (let ((vector (make-vector (- end start))))
-      (do ((i (- end 1) (- i 1)))
-          ((< i start) vector)
-        (vector-set! vector (- i start) (string-ref s i))))))
-
 (define (vector->string vector . maybe-start+end)
   (let ((start 0) (end (vector-length vector)))
     (case (length maybe-start+end)
@@ -15,10 +8,12 @@
           ((< i start) s)
         (string-set! s (- i start) (vector-ref vector i))))))
 
+;; This is R7RS string-map, not SRFI 13.  (Extra arguments are
+;; strings, not start/end indices.)
 (define (string-map f x . rest)
 
   (define (string-map1 f x)
-    (list->string (map f (string->list x))))
+    (srfi-13:string-map f x))
 
   (define (string-map2 f x y)
     (list->string (map f (string->list x) (string->list y))))
@@ -31,13 +26,12 @@
     ((1)  (string-map2 f x (car rest)))
     (else (string-mapn f (cons x rest)))))
 
+;; This is R7RS string-for-each, not SRFI 13.  (Extra arguments are
+;; strings, not start/end indices.)
 (define (string-for-each f s . rest)
 
   (define (for-each1 i n)
-    (if (< i n)
-	(begin (f (string-ref s i))
-	       (for-each1 (+ i 1) n))
-	(if #f #f)))
+    (srfi-13:string-for-each f s))
 
   (define (for-each2 s2 i n)
     (if (< i n)
@@ -72,10 +66,6 @@
                      (error
                                           "illegal-arguments"
                                           (cons f args))))))))))
-
-(define (string-copy s . maybe-start+end)
-  (let-string-start+end (start end) string-copy! s maybe-start+end
-    (%substring s start end)))
 
 ;; Chicken's write-string is incompatible with R7RS
 (define write-string
