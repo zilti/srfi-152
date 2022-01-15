@@ -36,6 +36,7 @@
           (only (chicken base) include error case-lambda open-input-string
                                open-output-string get-output-string
                                receive assert
+                               let-optionals
                                )
           (only utf8 string-length string-ref string-set! make-string
                      string substring list->string display read-string
