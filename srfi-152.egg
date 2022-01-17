@@ -2,7 +2,7 @@
  (maintainer "Wolfgang Corcoran-Mathe")
  (synopsis "String library (reduced)")
  (category data)
- (version "0.2")
+ (version "1.0")
  (dependencies utf8)
  (test-dependencies test)
  (license "MIT")
