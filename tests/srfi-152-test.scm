@@ -1064,7 +1064,6 @@
 (test #f
           (dummy-index "abcdeffffoo"
                                 (string-contains "abcdeffffoo" "efffoo")))
-#|
 (test 0
           (dummy-index ""
                                 (string-contains-right "" "")))
@@ -1087,7 +1086,6 @@
           (dummy-index "abcdeffffoo"
                                 (string-contains-right "abcdeffffoo"
                                                        "efffoo")))
-|#
 (test 0
           (dummy-index ""
                                 (string-contains "" "" 0)))
@@ -1109,7 +1107,6 @@
 (test #f
           (dummy-index "abcdeffffoo"
                                 (string-contains "abcdeffffoo" "efffoo" 2)))
-#|
 (test 0
           (dummy-index ""
                                 (string-contains-right "" "" 0)))
@@ -1137,7 +1134,6 @@
           (dummy-index "abcdeffffoo"
                                 (string-contains-right "abcdeffffoo"
                                                        "efffoo" 2)))
-|#
 (test 0
           (dummy-index ""
                                 (string-contains "" "" 0 0)))
@@ -1165,7 +1161,6 @@
           (dummy-index "abcdeffffoo"
                                 (string-contains "abcdeffffoo"
                                                  "efffoo" 2 10)))
-#|
 (test 0
           (dummy-index ""
                                 (string-contains-right "" "" 0 0)))
@@ -1193,7 +1188,6 @@
           (dummy-index "abcdeffffoo"
                                 (string-contains-right "abcdeffffoo"
                                                        "efffoo" 2 10)))
-|#
 (test 0
           (dummy-index ""
                                 (string-contains "" "" 0 0 0)))
@@ -1221,7 +1215,6 @@
           (dummy-index "abcdeffffoo"
                                 (string-contains "abcdeffffoo"
                                                  "efffoo" 2 10 1)))
-#|
 (test 0
           (dummy-index ""
                                 (string-contains-right "" "" 0 0 0)))
@@ -1249,7 +1242,6 @@
           (dummy-index "abcdeffffoo"
                                 (string-contains-right "abcdeffffoo"
                                                        "efffoo" 2 10 1)))
-|#
 (test 0
           (dummy-index ""
                                 (string-contains "" "" 0 0 0 0)))
@@ -1277,7 +1269,6 @@
           (dummy-index "abcdeffffoo"
                                 (string-contains "abcdeffffoo"
                                                  "efffoo" 2 10 0 2)))
-#|
 (test 0
           (dummy-index ""
                                 (string-contains-right "" "" 0 0 0 0)))
@@ -1305,7 +1296,6 @@
           (dummy-index "abcdeffffoo"
                                 (string-contains-right "abcdeffffoo"
                                                        "efffoo" 2 10 1 3)))
-|#
 )
 ;;; The whole string
 (test-group "srfi-152:larceny:wholestring"

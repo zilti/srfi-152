@@ -5,7 +5,7 @@
    string-trim string-trim-right string-trim-both string-replace
    string-prefix-length string-suffix-length string-prefix?
    string-suffix? string-index string-index-right string-skip
-   string-skip-right string-contains ;string-contains-right
+   string-skip-right string-contains string-contains-right
    string-take-while string-take-while-right string-drop-while
    string-drop-while-right string-break string-span string-append
    string-concatenate string-concatenate-reverse string-join

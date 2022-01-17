@@ -129,6 +129,27 @@
 		(count 0 (if (criterion (string-ref s i)) (+ count 1) count)))
 	       ((>= i end) count))))
 
+(: string-contains-right
+   (string string #!optional integer integer integer integer -->
+    (or integer false)))
+(define (string-contains-right text pattern . maybe-starts+ends)
+  (let-string-start+end2 (t-start t-end p-start p-end)
+                         string-contains-right text pattern maybe-starts+ends
+    (let* ((t-len    (string-length text))
+           (p-len    (string-length pattern))
+           (p-size   (- p-end p-start))
+           (rt-start (- t-len t-end))
+           (rt-end   (- t-len t-start))
+           (rp-start (- p-len p-end))
+           (rp-end   (- p-len p-start))
+           (res      (string-contains (string-reverse text)
+                                      (string-reverse pattern)
+                                      rt-start
+                                      rt-end
+                                      rp-start
+                                      rp-end)))
+      (and res (- t-len res p-size)))))
+
 (: string-segment (string integer --> (list-of string)))
 (define (string-segment str k)
   (assert (>= k 1) "minimum segment size is 1" k)
