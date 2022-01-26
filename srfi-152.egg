@@ -9,4 +9,5 @@
  (components
   (extension
    srfi-152
-   (types-file))))
+   (types-file)
+   (csc-options "-fixnum-arithmetic" "-O3" "-d1"))))
