@@ -71,3 +71,9 @@
 (define (string-remove pred s . opt)
   (assert (procedure? pred))
   (apply srfi-13:string-delete pred s opt))  ; name changed
+
+;; Aside from the name-change, the `to` argument is now mandatory.
+(: string-replicate
+   (string integer integer #!optional integer integer -> string))
+(define (string-replicate s from to . opt)
+  (apply xsubstring s from to opt))
