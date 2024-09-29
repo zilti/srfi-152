@@ -33,23 +33,30 @@
                   (string-ci>? base-string-ci>?)
                   (string-ci<=? base-string-ci<=?)
                   (string-ci>=? base-string-ci>=?))
-          (only (chicken base) include error case-lambda open-input-string
-                               open-output-string get-output-string
-                               receive assert
-                               let-optionals
-                               )
-          (only utf8 string-length string-ref string-set! make-string
-                     string substring list->string display read-string
-                     string-fill! string->list reverse-list->string
-                     )
+          (only (scheme case-lambda) case-lambda)
+          (only (chicken base) include error receive assert let-optionals
+                              )
+          (only (chicken string) reverse-list->string
+                                 )
+          (only (scheme base) get-output-string open-output-string
+                              open-input-string read-string write-string
+                              vector->string string->vector string-map
+                              string-for-each
+                              )
+          (only scheme string-length string-ref string-set! make-string
+                       string substring list->string display
+                       string-fill! string->list
+                       )
           ;; Some 152 procedures differ from their 13 counterparts.
-          (except utf8-srfi-13
+          (except srfi-13
                   string-every string-any string-trim string-trim-right
                   string-trim-both string-index string-index-right
                   string-skip string-skip-right string-count
                   string-filter string-delete string-map string-for-each
+                  let-string-start+end let-string-start+end
+                  string-parse-start+end string-parse-final-start+end
                   )
-          (prefix (only utf8-srfi-13
+          (prefix (only srfi-13
                         string-every string-any string-trim
                         string-trim-right string-trim-both string-index
                         string-index-right string-skip string-skip-right
@@ -62,5 +69,4 @@
   (include "wrappers.scm")
   (include "portable.scm")
   (include "extend-comparisons.scm")
-  (include "r7rs-shim.scm")
 )

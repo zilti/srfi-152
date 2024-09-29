@@ -3,7 +3,7 @@
  (synopsis "String library (reduced)")
  (category data)
  (version "1.0")
- (dependencies utf8)
+ (dependencies)
  (test-dependencies test)
  (license "MIT")
  (components
